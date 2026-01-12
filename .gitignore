@@ -1,1 +1,7 @@
-        1 file(s) copied.
+__pycache__/
+*.pyc
+*.pyo
+.idea
+.env
+.venv
+
