@@ -1,4 +1,4 @@
-from connection import Connection
+from .connection import Connection
 import json
 
 
@@ -8,7 +8,13 @@ class DbOperations:
         self.connection.get_connection()
 
     def add_location(self,location):
-        self.connection.conn.set(location["query"], json.dumps(location))
+        conn = self.connection.conn
+        keys = conn.keys()
+        if location["query"] not in keys:
+            conn.set(location["query"], json.dumps(location))
+            return True
+        else:
+            return False
 
     def get_all_location(self):
         conn = self.connection.conn
