@@ -1,12 +1,15 @@
 import requests
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 
-SERVICE_B_URL = "http://localhost:8000"
+SERVICE_B_URL = os.getenv("SERVICE_B_URL")
 IP_API_URL = "http://ip-api.com/json/"
 
 
 def get_coordinates(ip: str):
-    response = requests.get(f"http://ip-api.com/json/{ip}?fields=lat,lon,ip,query")
+    response = requests.get(f"http://ip-api.com/json/{ip}?fields=lat,lon,query")
     data = response.json()
     return data
 
@@ -22,7 +25,7 @@ def send_to_service_b(coordinates: dict):
 
     return coordinates
 
-def resolve_ip_and_send(ip: str):
+def resolve_ip_and_send(ip):
     coordinates = get_coordinates(ip)
     data = send_to_service_b(coordinates)
     return data

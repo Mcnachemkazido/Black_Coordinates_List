@@ -5,11 +5,22 @@ services:
     ports:
         - "6379:6379"
 
-
   app-a:
-    build: service_b/app
+    build: service_a/app
 
     container_name: fastapi-a
+
+    ports:
+      - "8002:8002"
+    environment:
+      SERVICE_B_URL: app-b
+
+
+
+  app-b:
+    build: service_b/app
+
+    container_name: fastapi-b
 
     environment:
       REDIS_HOST: db
@@ -20,14 +31,6 @@ services:
     ports:
       - "8000:8000"
 
-
-  app-b:
-    build: service_a/app
-
-    container_name: fastapi-b
-
-    ports:
-      - "8002:8002"
 
 
 
