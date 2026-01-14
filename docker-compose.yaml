@@ -6,19 +6,28 @@ services:
         - "6379:6379"
 
 
-  app:
+  app-a:
     build: service_b/app
 
-    container_name: fastapi-redis
+    container_name: fastapi-a
 
     environment:
-      REDIS_HOST: ${REDIS_HOST}
+      REDIS_HOST: db
       REDIS_PORT: ${REDIS_PORT}
       REDIS_USER: ${REDIS_USER}
       REDIS_PASS: ${REDIS_PASS}
 
     ports:
       - "8000:8000"
+
+
+  app-b:
+    build: service_a/app
+
+    container_name: fastapi-b
+
+    ports:
+      - "8002:8002"
 
 
 
