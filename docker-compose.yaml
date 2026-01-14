@@ -5,16 +5,6 @@ services:
     ports:
         - "6379:6379"
 
-  app-a:
-    build: service_a/app
-
-    container_name: fastapi-a
-
-    ports:
-      - "8002:8002"
-    environment:
-      SERVICE_B_URL: app-b
-
 
 
   app-b:
@@ -31,7 +21,14 @@ services:
     ports:
       - "8000:8000"
 
+  app-a:
+    build: service_a/app
 
+    container_name: fastapi-a
 
+    ports:
+      - "8002:8002"
+    environment:
+      SERVICE_B_URL: http://app-b:8000
 
 
